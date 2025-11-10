@@ -1,0 +1,25 @@
+{
+  "name": "fcc-timestamp-microservice",
+  "version": "0.0.1",
+  "description": "A Timestamp Microservice project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --watch server.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuno-nogueira/freeCodeCamp_Timestamp_Microservice.git"
+  },
+  "keywords": [
+    "node",
+    "mongoose",
+    "express"
+  ],
+  "license": "MIT"
+}
