@@ -1,5 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+
+app.use(cors({optionsSuccessStatus: 200}));
 app.use(express.json());
 
 const hostname = '127.0.0.1';
@@ -9,24 +12,34 @@ app.get('/', function(req, res) {
     res.send('Hello Express')
 })
 
+// Route if there is no time in the URL (shows current time)
+app.get('/api', (req, res) => {
+    const now = new Date();
+    res.json({
+        unix: now.getTime(),
+        utc: now.toUTCString()
+    })
+})
+
 app.get('/api/:date', (req, res) => {
     let { date } = req.params;
-    let d = "";
 
-    if (!date.includes("-")) {
+    //if the url has only numbers
+    if (/^\d+$/.test(date)) {
         date = parseInt(date);
     }
 
-    d = new Date(date);
-    d = d.toUTCString();
-    console.log(d)
+    let d = new Date(date);
 
-    if (d === null) {
-        res.json({error: "Invalid Date"})
-    }  else if (!date) {
-        res.json({unix: new Date(), utc: new Date().getMilliseconds})
+    // check if the date is valid
+    if (isNaN(d.getTime())) {
+        return res.json({ error: "Invalid Date" });
     }
-    res.json({echo: d});
+
+    res.json({
+        unix: d.getTime(),
+        utc: d.toUTCString()
+    });
 })
 
 // if (!process.env.DISABLE_XORIGIN) {
